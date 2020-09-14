@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liziczh.springboot.mybatis.mapper.TDemoMapper">
+    <resultMap id="TDemoMap" type="com.liziczh.archetype.api.entity.TDemo">
+        <id column="ID" jdbcType="INTEGER" property="id" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="PERMIT_ROLE" property="permitRole" jdbcType="VARCHAR" />
+        <result column="VALID" property="valid" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column" >
+        ID, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, PERMIT_ROLE, VALID
+    </sql>
+    <!-- 条件查询 -->
+    <select id="selectByCondition" parameterType="com.liziczh.archetype.api.condition.DemoCondition" resultType="list" resultMap="TDemoMap">
+        select * from t_demo
+        <where>
+            <if test="name != null">
+                NAME like #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                CREATE_TIME &gt; #{startTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                CREATE_TIME &lt; #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="valid != null">
+                VALID = #{valid,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="sortCondition.cloName != null">
+            order by ${sortCondition.cloName} ${sortCondition.orderType}
+        </if>
+    </select>
+    <!-- 查询全部数据 -->
+    <select id="getAll" resultType="list" resultMap="TDemoMap">
+        select * from t_demo
+    </select>
+    <!-- 查询数据 By ID -->
+    <select id="get" resultMap="TDemoMap" parameterType="int">
+        select * from t_demo where ID = #{id,jdbcType=DECIMAL}
+    </select>
+    <!-- 新增数据 -->
+    <insert id="insert" parameterType="com.liziczh.archetype.api.entity.TDemo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into t_demo (ID, NAME, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, PERMIT_ROLE, VALID)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},
+		#{updateUser,jdbcType=VARCHAR}, #{permitRole,jdbcType=VARCHAR}, #{valid,jdbcType=VARCHAR})
+	</insert>
+    <!-- 更新数据 By ID -->
+    <update id="update" parameterType="com.liziczh.archetype.api.entity.TDemo">
+        update t_demo
+        <set>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="permitRole != null">
+                PERMIT_ROLE = #{permitRole,jdbcType=VARCHAR},
+            </if>
+            <if test="valid != null">
+                VALID = #{valid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <!-- 删除数据 By ID -->
+    <delete id="delete" parameterType="int">
+		delete from T_DEMO where ID = #{id,jdbcType=BIGINT}
+	</delete>
+    <!--MybatisRedis缓存-->
+    <cache type="com.liziczh.springboot.mybatis.cache.MybatisRedisCache" />
+</mapper>
