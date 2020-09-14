@@ -20,8 +20,8 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "T_DEMO2")
-public class TDemo2 extends BaseEntity {
+@Table(name = "t_demo")
+public class TDemo extends BaseEntity {
 	private static final long serialVersionUID = -3399850105386695874L;
 	@ApiModelProperty(value = "ID")
 	@JsonProperty("id")

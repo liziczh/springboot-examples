@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.liziczh.springboot.jpa.entity.TDemo2;
+import com.liziczh.springboot.jpa.entity.TDemo;
 import com.liziczh.springboot.jpa.repository.TDemoRepository;
 
 @RunWith(SpringRunner.class)
@@ -27,10 +27,10 @@ public class SpringBootJpaTest {
 	}
 	@Test
 	public void saveTest() {
-		TDemo2 tDemo2 = new TDemo2();
-		tDemo2.setName("lizi");
-		tDemo2.setCreateTime(new Date());
-		tDemo2.setCreateUser("zhehao.chen");
-		tDemoRepository.save(tDemo2);
+		TDemo tDemo = new TDemo();
+		tDemo.setName("lizi");
+		tDemo.setCreateTime(new Date());
+		tDemo.setCreateUser("zhehao.chen");
+		tDemoRepository.save(tDemo);
 	}
 }
