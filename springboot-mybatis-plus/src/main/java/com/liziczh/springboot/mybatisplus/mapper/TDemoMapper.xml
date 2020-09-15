@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TDemoMapper">
-    <resultMap id="TDemoMap" type="com.liziczh.archetype.api.entity.TDemo">
+    <resultMap id="TDemoMap" type="com.liziczh.springboot.mybatisplus.entity.TDemo">
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="NAME" property="name" jdbcType="VARCHAR" />
         <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -12,5 +12,5 @@
         <result column="VALID" property="valid" jdbcType="VARCHAR" />
     </resultMap>
     <!--MybatisRedis缓存-->
-    <cache type="MybatisRedisCache" />
+    <cache type="com.liziczh.springboot.mybatisplus.cache.MybatisRedisCache" />
 </mapper>
