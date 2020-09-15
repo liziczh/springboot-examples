@@ -6,10 +6,11 @@ spring:
   application:
     name: jpa-demo-web
   profiles:
-    include: web-${spring.profiles.active},service-${spring.profiles.active},mybatis-${spring.profiles.active},ref-${spring.profiles.active},redis-${spring.profiles.active}
+    include: jpa-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+# log
 logging:
   level:
     root: info

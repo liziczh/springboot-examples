@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liziczh.springboot.mybatis.mapper.TDemoMapper">
-    <resultMap id="TDemoMap" type="com.liziczh.archetype.api.entity.TDemo">
+    <resultMap id="TDemoMap" type="com.liziczh.springboot.mybatis.entity.TDemo">
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="NAME" property="name" jdbcType="VARCHAR" />
         <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -15,7 +15,7 @@
         ID, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, PERMIT_ROLE, VALID
     </sql>
     <!-- 条件查询 -->
-    <select id="selectByCondition" parameterType="com.liziczh.archetype.api.condition.DemoCondition" resultType="list" resultMap="TDemoMap">
+    <select id="selectByCondition" parameterType="com.liziczh.springboot.mybatis.condition.DemoCondition" resultType="list" resultMap="TDemoMap">
         select * from t_demo
         <where>
             <if test="name != null">
@@ -44,14 +44,14 @@
         select * from t_demo where ID = #{id,jdbcType=DECIMAL}
     </select>
     <!-- 新增数据 -->
-    <insert id="insert" parameterType="com.liziczh.archetype.api.entity.TDemo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insert" parameterType="com.liziczh.springboot.mybatis.entity.TDemo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into t_demo (ID, NAME, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, PERMIT_ROLE, VALID)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
 		#{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},
 		#{updateUser,jdbcType=VARCHAR}, #{permitRole,jdbcType=VARCHAR}, #{valid,jdbcType=VARCHAR})
 	</insert>
     <!-- 更新数据 By ID -->
-    <update id="update" parameterType="com.liziczh.archetype.api.entity.TDemo">
+    <update id="update" parameterType="com.liziczh.springboot.mybatis.entity.TDemo">
         update t_demo
         <set>
             <if test="name != null">

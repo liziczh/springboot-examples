@@ -3,6 +3,7 @@ package com.liziczh.springboot.jpa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,7 +62,7 @@ public class DemoController extends BaseController {
 		return new ResultBuilder<TDemo>().complete(demo);
 	}
 	@ApiOperation(value = "删除接口", notes = "删除接口")
-	@GetMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/delete/{id}")
 	public Result<String> deleteDemo(@PathVariable String id) throws Exception {
 		demoService.deleteDemo(id);
 		return new ResultBuilder<String>().success();

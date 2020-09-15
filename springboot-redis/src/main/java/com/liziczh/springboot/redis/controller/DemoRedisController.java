@@ -1,8 +1,10 @@
 package com.liziczh.springboot.redis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +24,7 @@ public class DemoRedisController extends BaseController {
 	private DemoRedisService demoRedisService;
 
 	@ApiOperation(value = "缓存", notes = "缓存")
-	@GetMapping(value = "/cache/{key}/{value}")
+	@PostMapping(value = "/cache/{key}/{value}")
 	public Result<String> cache(@PathVariable String key, @PathVariable String value) throws Exception {
 		demoRedisService.setValue(key, value);
 		return new ResultBuilder<String>().success();
@@ -40,7 +42,7 @@ public class DemoRedisController extends BaseController {
 		return new ResultBuilder<String>().success();
 	}
 	@ApiOperation(value = "删除", notes = "删除")
-	@GetMapping(value = "/del/{key}")
+	@DeleteMapping(value = "/del/{key}")
 	public Result<String> del(@PathVariable String key) throws Exception {
 		demoRedisService.delKey(key);
 		return new ResultBuilder<String>().success();
