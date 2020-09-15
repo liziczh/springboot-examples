@@ -1,4 +1,4 @@
-package com.liziczh.springboot.redis.common;
+package com.liziczh.springboot.redis.constant;
 
 /**
  * @author zhehao.chen

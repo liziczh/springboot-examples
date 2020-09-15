@@ -11,11 +11,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.liziczh.archetype.api.common.Constants;
-import com.liziczh.archetype.api.condition.DemoCondition;
-import com.liziczh.archetype.api.entity.TDemo;
-import com.liziczh.springboot.mybatis.mapper.TDemoMapper;
 import com.liziczh.base.common.condition.SortCondition;
+import com.liziczh.springboot.mybatis.condition.DemoCondition;
+import com.liziczh.springboot.mybatis.constant.Constants;
+import com.liziczh.springboot.mybatis.entity.TDemo;
+import com.liziczh.springboot.mybatis.mapper.TDemoMapper;
 
 @RunWith(SpringRunner.class)
 @SpringJUnitConfig(classes = MybatisApplication.class)
