@@ -2,6 +2,7 @@ package com.liziczh.springboot.mybatis.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.liziczh.base.common.service.BaseService;
 import com.liziczh.springboot.mybatis.condition.DemoCondition;
 import com.liziczh.springboot.mybatis.entity.TDemo;
@@ -13,7 +14,7 @@ public interface DemoService extends BaseService {
 	 * @return List<TDemo>
 	 * @throws Exception 异常
 	 */
-	List<TDemo> selectByCondition(DemoCondition condition) throws Exception;
+	PageInfo<TDemo> selectByCondition(DemoCondition condition) throws Exception;
 	/**
 	 * 查询全部
 	 * @return TDemo

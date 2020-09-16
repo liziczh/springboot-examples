@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liziczh.base.common.controller.BaseController;
 import com.liziczh.base.common.result.Result;
 import com.liziczh.base.common.result.ResultBuilder;
+import com.liziczh.springboot.mybatis.condition.DemoCondition;
 import com.liziczh.springboot.mybatis.entity.TDemo;
 import com.liziczh.springboot.mybatis.service.DemoService;
 
@@ -34,13 +35,11 @@ public class DemoController extends BaseController {
 	public Result<String> hello() {
 		return new ResultBuilder<String>().complete("HelloWorld");
 	}
-	@ApiOperation(value = "分页查询", notes = "分页查询")
-	@GetMapping(value = "/page/{pageNum}/{pageSize}")
-	public Result<PageInfo<TDemo>> pageDemo(@PathVariable Integer pageNum, @PathVariable Integer pageSize) throws Exception {
-		PageHelper.startPage(pageNum, pageSize);
-		List<TDemo> demoList = demoService.getAll();
-		PageInfo<TDemo> pageInfo = new PageInfo<>(demoList);
-		return new ResultBuilder<PageInfo<TDemo>>().complete(pageInfo);
+	@ApiOperation(value = "条件查询", notes = "分页查询")
+	@GetMapping(value = "/select")
+	public Result<PageInfo<TDemo>> pageDemo(@RequestBody DemoCondition condition) throws Exception {
+		PageInfo<TDemo> demoList = demoService.selectByCondition(condition);
+		return new ResultBuilder<PageInfo<TDemo>>().complete(demoList);
 	}
 	@ApiOperation(value = "查询全部", notes = "查询全部")
 	@GetMapping(value = "/getAll")

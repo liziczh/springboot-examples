@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.liziczh.base.common.condition.PageCondition;
 import com.liziczh.springboot.mybatis.condition.DemoCondition;
 import com.liziczh.springboot.mybatis.entity.TDemo;
 import com.liziczh.springboot.mybatis.mapper.TDemoMapper;
@@ -23,8 +26,12 @@ public class DemoServiceImpl implements DemoService {
 	private TDemoMapper demoMapper;
 
 	@Override
-	public List<TDemo> selectByCondition(DemoCondition condition) {
-		return demoMapper.selectByCondition(condition);
+	public PageInfo<TDemo> selectByCondition(DemoCondition condition) {
+		PageCondition pageCondition = condition.getPageCondition();
+		PageHelper.startPage(pageCondition.getPageNum(), pageCondition.getPageSize());
+		List<TDemo> demoList = demoMapper.selectByCondition(condition);
+		PageInfo<TDemo> pageInfo = new PageInfo<>(demoList);
+		return pageInfo;
 	}
 	@Override
 	public List<TDemo> getAll() {

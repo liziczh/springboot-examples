@@ -22,7 +22,7 @@ import lombok.Data;
 @Entity
 @Table(name = "t_demo")
 public class TDemo extends BaseEntity {
-	private static final long serialVersionUID = -3399850105386695874L;
+	private static final long serialVersionUID = -4646552816619287719L;
 	@ApiModelProperty(value = "ID")
 	@JsonProperty("id")
 	@Id
