@@ -54,8 +54,6 @@ logging:
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 mybatis:
   config-location: classpath:mybatis-config.xml
-  mapper-locations: com.liziczh.**.mapper/*.xml
-  type-aliases-package: com.liziczh.archetype.api.entity
 pagehelper:
   helper-dialect: mysql
   # 分页参数合理化

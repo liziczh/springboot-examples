@@ -3,17 +3,20 @@ package com.liziczh.springboot.jpa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liziczh.base.common.controller.BaseController;
 import com.liziczh.base.common.result.Result;
 import com.liziczh.base.common.result.ResultBuilder;
+import com.liziczh.springboot.jpa.condition.JpaCondition;
 import com.liziczh.springboot.jpa.entity.TDemo;
 import com.liziczh.springboot.jpa.service.DemoService;
 
@@ -32,10 +35,11 @@ public class DemoController extends BaseController {
 	public Result<String> hello() {
 		return new ResultBuilder<String>().complete("HelloWorld");
 	}
-	@ApiOperation(value = "分页查询", notes = "分页查询")
-	@GetMapping(value = "/page/{pageNum}/{pageSize}")
-	public Result<List<TDemo>> pageDemo(@PathVariable Integer pageNum, @PathVariable Integer pageSize) throws Exception {
-		return new ResultBuilder<List<TDemo>>().success();
+	@ApiOperation(value = "条件查询", notes = "条件查询")
+	@GetMapping(value = "/select")
+	public Result<Page<TDemo>> select(@RequestBody JpaCondition<TDemo> condition) throws Exception {
+		Page<TDemo> demoList = demoService.selectByCondition(condition);
+		return new ResultBuilder<Page<TDemo>>().complete(demoList);
 	}
 	@ApiOperation(value = "查询全部", notes = "查询全部")
 	@GetMapping(value = "/getAll")

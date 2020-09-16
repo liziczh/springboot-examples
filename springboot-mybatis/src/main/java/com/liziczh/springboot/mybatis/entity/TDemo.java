@@ -8,7 +8,9 @@ import com.liziczh.base.common.entity.BaseEntity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TDemo extends BaseEntity {

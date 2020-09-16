@@ -83,5 +83,5 @@
 		delete from T_DEMO where ID = #{id,jdbcType=BIGINT}
 	</delete>
     <!--MybatisRedis缓存-->
-    <cache type="com.liziczh.springboot.mybatis.cache.MybatisRedisCache" />
+<!--    <cache type="com.liziczh.springboot.mybatis.cache.MybatisRedisCache" />-->
 </mapper>

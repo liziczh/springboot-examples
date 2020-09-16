@@ -1,10 +1,19 @@
 package com.liziczh.springboot.jpa.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.liziczh.base.common.condition.PageCondition;
+import com.liziczh.base.common.condition.SortCondition;
+import com.liziczh.springboot.jpa.condition.JpaCondition;
 import com.liziczh.springboot.jpa.entity.TDemo;
 import com.liziczh.springboot.jpa.repository.TDemoRepository;
 import com.liziczh.springboot.jpa.service.DemoService;
@@ -22,8 +31,24 @@ public class DemoServiceImpl implements DemoService {
 	private TDemoRepository demoRepository;
 
 	@Override
-	public List<TDemo> selectByCondition(String name) {
-		return demoRepository.findByName(name);
+	public Page<TDemo> selectByCondition(JpaCondition<TDemo> condition) {
+		PageCondition pageCondition = condition.getPageCondition();
+		List<SortCondition> sortConditionList = condition.getSortConditionList();
+		List<Sort.Order> sortOrderList = new ArrayList<>();
+		sortConditionList.forEach(sortCondition -> {
+			Sort.Direction direction = Sort.Direction.DESC;
+			if (sortCondition.getOrderType().equals(SortCondition.ORDER.DESC.getCode())) {
+				direction = Sort.Direction.DESC;
+			} else if (sortCondition.getOrderType().equals(SortCondition.ORDER.ASC.getCode())) {
+				direction = Sort.Direction.ASC;
+			}
+			sortOrderList.add(new Sort.Order(direction, sortCondition.getCloName()));
+		});
+		PageRequest page = PageRequest.of(pageCondition.getPageNum(), pageCondition.getPageSize(), Sort.by(sortOrderList));
+		ExampleMatcher matcher = ExampleMatcher.matching()
+				.withMatcher("NAME", ExampleMatcher.GenericPropertyMatchers.contains());
+		Example<TDemo> example = Example.of(condition.getT(), matcher);
+		return demoRepository.findAll(example, page);
 	}
 	@Override
 	public List<TDemo> getAll() {
