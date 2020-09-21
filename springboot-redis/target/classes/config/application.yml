@@ -7,6 +7,7 @@ spring:
     name: redis-demo-web
   profiles:
     include: redis-${spring.profiles.active}
+    active: uat
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

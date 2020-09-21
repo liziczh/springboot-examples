@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.liziczh.base.common.controller.BaseController;
 import com.liziczh.base.common.result.Result;
 import com.liziczh.base.common.result.ResultBuilder;
 import com.liziczh.springboot.jpa.condition.JpaCondition;
@@ -26,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "示例接口", tags = "示例接口")
 @RequestMapping(value = "/demo/")
 @RestController
-public class DemoController extends BaseController {
+public class DemoController {
 	@Autowired
 	private DemoService demoService;
 

@@ -6,6 +6,7 @@ spring:
   application:
     name: mybatis-demo-web
   profiles:
+    active: uat
     include: mybatis-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

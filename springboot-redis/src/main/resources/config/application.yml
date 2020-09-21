@@ -6,6 +6,7 @@ spring:
   application:
     name: redis-demo-web
   profiles:
+    active: uat
     include: redis-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

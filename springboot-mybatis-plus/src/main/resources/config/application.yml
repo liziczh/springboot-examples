@@ -1,4 +1,23 @@
+server:
+  port: ${jvm_port:80}
+  servlet:
+    context-path: /mybatisplus-demo
 spring:
+  application:
+    name: mybatisplus-demo-web
+  profiles:
+    active: uat
+    include: mybatisplus-${spring.profiles.active}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+# log
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
+  file:
+    name: /opt/logs/${spring.application.name}/${spring.application.name}.log
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource

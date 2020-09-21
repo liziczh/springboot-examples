@@ -6,6 +6,7 @@ spring:
   application:
     name: jpa-demo-web
   profiles:
+    active: uat
     include: jpa-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

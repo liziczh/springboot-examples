@@ -42,7 +42,7 @@ public class DemoServiceImpl implements DemoService {
 			} else if (sortCondition.getOrderType().equals(SortCondition.ORDER.ASC.getCode())) {
 				direction = Sort.Direction.ASC;
 			}
-			sortOrderList.add(new Sort.Order(direction, sortCondition.getCloName()));
+			sortOrderList.add(new Sort.Order(direction, sortCondition.getColumnName()));
 		});
 		PageRequest page = PageRequest.of(pageCondition.getPageNum(), pageCondition.getPageSize(), Sort.by(sortOrderList));
 		ExampleMatcher matcher = ExampleMatcher.matching()
