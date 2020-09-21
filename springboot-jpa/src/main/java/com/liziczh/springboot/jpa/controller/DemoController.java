@@ -35,7 +35,7 @@ public class DemoController {
 		return new ResultBuilder<String>().complete("HelloWorld");
 	}
 	@ApiOperation(value = "条件查询", notes = "条件查询")
-	@GetMapping(value = "/select")
+	@PostMapping(value = "/select")
 	public Result<Page<TDemo>> select(@RequestBody JpaCondition<TDemo> condition) throws Exception {
 		Page<TDemo> demoList = demoService.selectByCondition(condition);
 		return new ResultBuilder<Page<TDemo>>().complete(demoList);

@@ -36,7 +36,7 @@ public class DemoController extends BaseController {
 		return new ResultBuilder<String>().complete("HelloWorld");
 	}
 	@ApiOperation(value = "条件查询", notes = "分页查询")
-	@GetMapping(value = "/select")
+	@PostMapping(value = "/select")
 	public Result<PageInfo<TDemo>> pageDemo(@RequestBody DemoCondition condition) throws Exception {
 		PageInfo<TDemo> demoList = demoService.selectByCondition(condition);
 		return new ResultBuilder<PageInfo<TDemo>>().complete(demoList);

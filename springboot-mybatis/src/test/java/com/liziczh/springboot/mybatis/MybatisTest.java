@@ -11,7 +11,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.google.common.collect.Lists;
 import com.liziczh.base.common.condition.SortCondition;
+import com.liziczh.base.common.util.JacksonUtils;
 import com.liziczh.springboot.mybatis.condition.DemoCondition;
 import com.liziczh.springboot.mybatis.constant.Constants;
 import com.liziczh.springboot.mybatis.entity.TDemo;
@@ -28,9 +30,11 @@ public class MybatisTest {
 	@Test
 	public void selectByConditionTest() {
 		DemoCondition condition = new DemoCondition();
-		SortCondition sortCondition = new SortCondition("CREATE_TIME", SortCondition.ORDER.DESC.getCode());
-		condition.setSortCondition(sortCondition);
+		SortCondition sortCondition1 = new SortCondition("CREATE_TIME", SortCondition.ORDER.DESC.getCode());
+		SortCondition sortCondition2 = new SortCondition("UPDATE_TIME", SortCondition.ORDER.DESC.getCode());
+		condition.setSortConditionList(Lists.newArrayList(sortCondition1, sortCondition2));
 		List<TDemo> demoList = demoMapper.selectByCondition(condition);
+		System.out.println(JacksonUtils.toJSONString(demoList));
 	}
 	@Test
 	public void getAllTest() {

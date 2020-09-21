@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class DemoCondition extends BaseCondition {
 	private static final long serialVersionUID = -7473402179827602416L;
-	private Integer id;
 	private String name;
 	private Date startTime;
 	private Date endTime;

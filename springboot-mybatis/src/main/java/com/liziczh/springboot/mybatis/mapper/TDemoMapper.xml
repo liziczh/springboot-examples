@@ -31,8 +31,11 @@
                 VALID = #{valid,jdbcType=VARCHAR}
             </if>
         </where>
-        <if test="sortCondition.cloName != null">
-            order by ${sortCondition.cloName} ${sortCondition.orderType}
+        <if test="sortConditionList != null">
+            order by
+            <foreach collection="sortConditionList" index="index" item="sortCondition" separator="," open=" "  close=" ">
+                ${sortCondition.columnName} ${sortCondition.orderType}
+            </foreach>
         </if>
     </select>
     <!-- 查询全部数据 -->

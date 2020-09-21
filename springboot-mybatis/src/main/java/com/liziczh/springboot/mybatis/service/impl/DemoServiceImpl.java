@@ -30,8 +30,7 @@ public class DemoServiceImpl implements DemoService {
 		PageCondition pageCondition = condition.getPageCondition();
 		PageHelper.startPage(pageCondition.getPageNum(), pageCondition.getPageSize());
 		List<TDemo> demoList = demoMapper.selectByCondition(condition);
-		PageInfo<TDemo> pageInfo = new PageInfo<>(demoList);
-		return pageInfo;
+		return new PageInfo<>(demoList);
 	}
 	@Override
 	public List<TDemo> getAll() {

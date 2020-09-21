@@ -3,11 +3,11 @@ package com.liziczh.springboot.mybatisplus.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.liziczh.base.common.service.BaseService;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.liziczh.springboot.mybatisplus.condition.DemoCondition;
 import com.liziczh.springboot.mybatisplus.entity.TDemo;
 
-public interface DemoService extends BaseService {
+public interface DemoService extends IService<TDemo> {
 	/**
 	 * 分页查询
 	 * @param condition 条件

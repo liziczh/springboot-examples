@@ -12,5 +12,5 @@
         <result column="VALID" property="valid" jdbcType="VARCHAR" />
     </resultMap>
     <!--MybatisRedis缓存-->
-    <cache type="com.liziczh.springboot.mybatisplus.cache.MybatisRedisCache" />
+<!--    <cache type="com.liziczh.springboot.mybatisplus.cache.MybatisRedisCache" />-->
 </mapper>
