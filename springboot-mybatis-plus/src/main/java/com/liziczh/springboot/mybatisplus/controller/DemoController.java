@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.liziczh.base.common.condition.PageCondition;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liziczh.base.common.controller.BaseController;
 import com.liziczh.base.common.result.Result;
 import com.liziczh.base.common.result.ResultBuilder;
@@ -36,16 +36,14 @@ public class DemoController extends BaseController {
 		return new ResultBuilder<String>().complete("HelloWorld");
 	}
 	@ApiOperation(value = "分页查询", notes = "分页查询")
-	@GetMapping(value = "/page/{pageNum}/{pageSize}")
-	public Result<List<TDemo>> pageDemo(@PathVariable Integer pageNum, @PathVariable Integer pageSize) throws Exception {
-		DemoCondition condition = new DemoCondition();
-		condition.setPageCondition(new PageCondition(pageNum, pageSize));
-		List<TDemo> demoList = demoService.selectByCondition(condition);
-		return new ResultBuilder<List<TDemo>>().complete(demoList);
+	@PostMapping(value = "/page")
+	public Result<Page<TDemo>> selectPage(@RequestBody DemoCondition condition) throws Exception {
+		Page<TDemo> demoPage = demoService.selectPage(condition);
+		return new ResultBuilder<Page<TDemo>>().complete(demoPage);
 	}
 	@ApiOperation(value = "条件查询", notes = "分页查询")
 	@GetMapping(value = "/select")
-	public Result<List<TDemo>> pageDemo(@RequestBody DemoCondition condition) throws Exception {
+	public Result<List<TDemo>> selectByCondition(@RequestBody DemoCondition condition) throws Exception {
 		List<TDemo> demoList = demoService.selectByCondition(condition);
 		return new ResultBuilder<List<TDemo>>().complete(demoList);
 	}
