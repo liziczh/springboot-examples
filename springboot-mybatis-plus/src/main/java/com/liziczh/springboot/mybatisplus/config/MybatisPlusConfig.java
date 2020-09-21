@@ -1,12 +1,12 @@
 package com.liziczh.springboot.mybatisplus.config;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 
-@MapperScan("com.liziczh.**.mapper")
+@EnableTransactionManagement
 @Configuration
 public class MybatisPlusConfig {
 	/**

@@ -1,5 +1,6 @@
 package com.liziczh.springboot.mybatisplus.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -8,7 +9,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.liziczh.base.common.entity.BaseEntity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @TableName(value = "t_demo")
-public class TDemo extends BaseEntity {
+public class TDemo implements Serializable {
 	private static final long serialVersionUID = -3399850105386695874L;
 	@ApiModelProperty(value = "ID")
 	@JsonProperty("id")

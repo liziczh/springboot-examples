@@ -2,15 +2,6 @@ server:
   port: ${jvm_port:80}
   servlet:
     context-path: /redis-demo
-spring:
-  application:
-    name: redis-demo-web
-  profiles:
-    include: redis-${spring.profiles.active}
-    active: uat
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
 # log
 logging:
   level:
@@ -18,3 +9,12 @@ logging:
   config: classpath:logback-spring.xml
   file:
     name: /opt/logs/${spring.application.name}/${spring.application.name}.log
+spring:
+  application:
+    name: redis-demo-web
+  profiles:
+    active: uat
+    include: redis-${spring.profiles.active}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

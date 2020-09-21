@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liziczh.base.common.condition.PageCondition;
 import com.liziczh.springboot.mybatisplus.condition.DemoCondition;
 import com.liziczh.springboot.mybatisplus.entity.TDemo;
@@ -22,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class DemoServiceImpl extends ServiceImpl<TDemoMapper, TDemo> implements DemoService {
+public class DemoServiceImpl implements DemoService {
 	@Autowired
 	private TDemoMapper demoMapper;
 

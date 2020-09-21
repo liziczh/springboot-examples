@@ -2,6 +2,12 @@ server:
   port: ${jvm_port:80}
   servlet:
     context-path: /mybatis-demo
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
+  file:
+    name: /opt/logs/${spring.application.name}/${spring.application.name}.log
 spring:
   application:
     name: mybatis-demo-web
@@ -11,13 +17,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-# log
-logging:
-  level:
-    root: info
-  config: classpath:logback-spring.xml
-  file:
-    name: /opt/logs/${spring.application.name}/${spring.application.name}.log
   # database
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

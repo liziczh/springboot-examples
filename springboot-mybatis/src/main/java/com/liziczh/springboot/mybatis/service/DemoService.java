@@ -3,11 +3,10 @@ package com.liziczh.springboot.mybatis.service;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
-import com.liziczh.base.common.service.BaseService;
 import com.liziczh.springboot.mybatis.condition.DemoCondition;
 import com.liziczh.springboot.mybatis.entity.TDemo;
 
-public interface DemoService extends BaseService {
+public interface DemoService {
 	/**
 	 * 条件查询
 	 * @param condition 条件

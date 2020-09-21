@@ -2,6 +2,7 @@ package com.liziczh.springboot.jpa.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.liziczh.base.common.entity.BaseEntity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +21,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "t_demo")
-public class TDemo extends BaseEntity {
+public class TDemo implements Serializable {
 	private static final long serialVersionUID = -4646552816619287719L;
 	@ApiModelProperty(value = "ID")
 	@JsonProperty("id")

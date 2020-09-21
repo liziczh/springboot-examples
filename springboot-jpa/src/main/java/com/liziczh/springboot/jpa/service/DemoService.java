@@ -4,11 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.liziczh.base.common.service.BaseService;
 import com.liziczh.springboot.jpa.condition.JpaCondition;
 import com.liziczh.springboot.jpa.entity.TDemo;
 
-public interface DemoService extends BaseService {
+public interface DemoService {
 	/**
 	 * 条件查询
 	 * @param condition 条件
