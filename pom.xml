@@ -18,5 +18,6 @@
 		<module>springboot-mybatis-plus</module>
 		<module>springboot-redis</module>
 		<module>springboot-mail</module>
+		<module>springboot-easyexcel</module>
 	</modules>
 </project>
