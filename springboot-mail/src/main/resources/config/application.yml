@@ -1,7 +1,7 @@
 server:
   port: ${jvm_port:80}
   servlet:
-    context-path: /redis-demo
+    context-path: /mail-demo
 # log
 logging:
   level:
@@ -11,10 +11,10 @@ logging:
     name: /opt/logs/${spring.application.name}/${spring.application.name}.log
 spring:
   application:
-    name: redis-demo-web
+    name: mail-demo-web
   profiles:
     active: uat
-    include: redis-${spring.profiles.active}
+    include: mail-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

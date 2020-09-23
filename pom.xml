@@ -16,5 +16,7 @@
 		<module>springboot-jpa</module>
 		<module>springboot-mybatis</module>
 		<module>springboot-mybatis-plus</module>
+		<module>springboot-redis</module>
+		<module>springboot-mail</module>
 	</modules>
 </project>

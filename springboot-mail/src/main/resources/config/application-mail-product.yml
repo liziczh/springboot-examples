@@ -1,0 +1,9 @@
+spring:
+  mail:
+    host: smtp.exmail.qq.com
+    password: Admin12345
+    username: system@liziczh.com
+    default-encoding: UTF-8
+    smtp:
+      auth: true
+      timeout: 25000
