@@ -66,7 +66,7 @@ public class ExcelServiceImpl implements ExcelService {
 		queryWrapper.orderByDesc("CREATE_TIME");
 		List<TDemo> demoList = tDemoMapper.selectList(queryWrapper);
 		List<DemoModel> modelList = new ArrayList<>();
-		demoList.parallelStream().forEach(demo -> {
+		for (TDemo demo : demoList) {
 			DemoModel model = new DemoModel();
 			model.setId(demo.getId());
 			model.setName(demo.getName());
@@ -75,7 +75,7 @@ public class ExcelServiceImpl implements ExcelService {
 			model.setUpdateDate(demo.getUpdateTime());
 			model.setUpdateUser(demo.getUpdateUser());
 			modelList.add(model);
-		});
+		}
 		return modelList;
 	}
 	/**
