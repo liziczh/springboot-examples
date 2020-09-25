@@ -17,6 +17,7 @@
 		<module>springboot-mybatis</module>
 		<module>springboot-mybatis-plus</module>
 		<module>springboot-redis</module>
+		<module>springboot-kafka</module>
 		<module>springboot-mail</module>
 		<module>springboot-easyexcel</module>
 	</modules>
