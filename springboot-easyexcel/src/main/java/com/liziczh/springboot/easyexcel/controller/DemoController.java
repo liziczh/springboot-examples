@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liziczh.springboot.easyexcel.condition.DemoCondition;
@@ -17,9 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 public class DemoController {
 	@Autowired
 	private ExcelService excelService;
-	@RequestMapping(value = "upload", method = RequestMethod.POST)
-	public void upload(@RequestBody String fileName) throws Exception {
-		excelService.uploadExcel(fileName);
+	@RequestMapping(value = "formatData", method = RequestMethod.POST)
+	public void formatJsonString(@RequestParam String uploadFileName, @RequestParam String exportFileName,) throws Exception {
+		excelService.formatData(uploadFileName, exportFileName);
 	}
 	@RequestMapping(value = "download", method = RequestMethod.POST)
 	public void download(@RequestBody DemoCondition condition) throws Exception {

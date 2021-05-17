@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Excel导出
+ *
  * @author zhehao.chen
  */
 @Slf4j
@@ -37,13 +38,8 @@ public class ExcelServiceImpl implements ExcelService {
 	@Autowired
 	private TDemoMapper tDemoMapper;
 	@Override
-	public void uploadExcel(String fileName) throws Exception {
-		EasyExcel.read(fileName, UploadDataModel.class, new UploadDataListener(this)).sheet().doRead();
-	}
-	@Override
-	public void exportExcel(List<UploadDataModel> dataModelList) throws Exception {
-		// 导出
-		EasyExcel.write("C:\\Users\\17794\\Desktop\\通知书安全方向01.xlsx", UploadDataModel.class).sheet("模板").doWrite(dataModelList);
+	public void formatData(String uploadFileName, String exportFileName) throws Exception {
+		EasyExcel.read(uploadFileName, UploadDataModel.class, new UploadDataListener(exportFileName)).sheet().doRead();
 	}
 	@Override
 	public void exportDemo(DemoCondition condition) {
@@ -92,6 +88,7 @@ public class ExcelServiceImpl implements ExcelService {
 	}
 	/**
 	 * 下载Excel文件
+	 *
 	 * @param fileName 文件名
 	 */
 	private void download(String fileName) {
