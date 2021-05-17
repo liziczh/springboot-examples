@@ -19,7 +19,7 @@ public class DemoController {
 	@Autowired
 	private ExcelService excelService;
 	@RequestMapping(value = "formatData", method = RequestMethod.POST)
-	public void formatJsonString(@RequestParam String uploadFileName, @RequestParam String exportFileName,) throws Exception {
+	public void formatJsonString(@RequestParam String uploadFileName, @RequestParam String exportFileName) throws Exception {
 		excelService.formatData(uploadFileName, exportFileName);
 	}
 	@RequestMapping(value = "download", method = RequestMethod.POST)
