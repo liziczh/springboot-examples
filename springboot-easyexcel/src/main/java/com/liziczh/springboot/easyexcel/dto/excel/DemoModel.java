@@ -20,16 +20,16 @@ public class DemoModel {
 	@ExcelProperty(value = "名称", index = 1)
 	@ColumnWidth(10)
 	private String name;
-	@ExcelProperty(value = "创建时间", index = 23)
+	@ExcelProperty(value = "创建时间", index = 2)
 	@ColumnWidth(20)
 	private Date createDate;
-	@ExcelProperty(value = "创建用户", index = 24)
+	@ExcelProperty(value = "创建用户", index = 3)
 	@ColumnWidth(12)
 	private String createUser;
-	@ExcelProperty(value = "更新时间", index = 25)
+	@ExcelProperty(value = "更新时间", index = 4)
 	@ColumnWidth(20)
 	private Date updateDate;
-	@ExcelProperty(value = "更新用户", index = 26)
+	@ExcelProperty(value = "更新用户", index = 5)
 	@ColumnWidth(12)
 	private String updateUser;
 }

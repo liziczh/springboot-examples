@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liziczh.springboot.easyexcel.condition.DemoCondition;
 import com.liziczh.springboot.easyexcel.dto.excel.DemoModel;
+import com.liziczh.springboot.easyexcel.dto.excel.UploadDataModel;
 import com.liziczh.springboot.easyexcel.entity.TDemo;
+import com.liziczh.springboot.easyexcel.listener.UploadDataListener;
 import com.liziczh.springboot.easyexcel.mapper.TDemoMapper;
 import com.liziczh.springboot.easyexcel.service.ExcelService;
 
@@ -33,9 +36,17 @@ public class ExcelServiceImpl implements ExcelService {
 	HttpServletResponse response;
 	@Autowired
 	private TDemoMapper tDemoMapper;
-
 	@Override
-	public void export(DemoCondition condition) {
+	public void uploadExcel(String fileName) throws Exception {
+		EasyExcel.read(fileName, UploadDataModel.class, new UploadDataListener(this)).sheet().doRead();
+	}
+	@Override
+	public void exportExcel(List<UploadDataModel> dataModelList) throws Exception {
+		// 导出
+		EasyExcel.write("C:\\Users\\17794\\Desktop\\通知书安全方向01.xlsx", UploadDataModel.class).sheet("模板").doWrite(dataModelList);
+	}
+	@Override
+	public void exportDemo(DemoCondition condition) {
 		// 导出
 		ServletOutputStream out;
 		ExcelWriter writer = null;
@@ -57,6 +68,7 @@ public class ExcelServiceImpl implements ExcelService {
 	}
 	/**
 	 * 条件查询数据
+	 *
 	 * @param condition 条件
 	 * @return BaseRowModel
 	 */

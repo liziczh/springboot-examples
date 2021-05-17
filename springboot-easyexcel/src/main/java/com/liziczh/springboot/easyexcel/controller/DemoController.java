@@ -17,9 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 public class DemoController {
 	@Autowired
 	private ExcelService excelService;
-
+	@RequestMapping(value = "upload", method = RequestMethod.POST)
+	public void upload(@RequestBody String fileName) throws Exception {
+		excelService.uploadExcel(fileName);
+	}
 	@RequestMapping(value = "download", method = RequestMethod.POST)
 	public void download(@RequestBody DemoCondition condition) throws Exception {
-		excelService.export(condition);
+		excelService.exportDemo(condition);
 	}
 }
