@@ -16,11 +16,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		<!--base-common-->
-		<dependency>
-			<groupId>com.liziczh</groupId>
-			<artifactId>base-common</artifactId>
-		</dependency>
 		<!--web-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

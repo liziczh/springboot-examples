@@ -17,7 +17,6 @@
 		<module>springboot-kafka</module>
 		<module>springboot-mail</module>
 		<module>springboot-easyexcel</module>
-		<module>springboot-rocketmq</module>
 	</modules>
 
 	<!--属性配置-->
@@ -37,6 +36,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--lombok-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	</dependencies>
 
 	<!--依赖管理-->
@@ -52,4 +56,17 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

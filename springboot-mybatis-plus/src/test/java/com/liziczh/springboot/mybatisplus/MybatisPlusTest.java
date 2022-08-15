@@ -1,69 +1,79 @@
 package com.liziczh.springboot.mybatisplus;
 
 import java.util.Date;
-import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.liziczh.base.common.util.JacksonUtils;
-import com.liziczh.springboot.mybatisplus.condition.DemoCondition;
-import com.liziczh.springboot.mybatisplus.constant.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liziczh.springboot.mybatisplus.entity.TDemo;
 import com.liziczh.springboot.mybatisplus.mapper.TDemoMapper;
 
-@RunWith(SpringRunner.class)
-@SpringJUnitConfig(classes = MybatisPlusApplication.class)
-@SpringBootTest
-@ActiveProfiles("test")
-public class MybatisPlusTest {
-	@Autowired
-	private TDemoMapper demoMapper;
+import lombok.extern.slf4j.Slf4j;
 
-	@Test
-	public void selectByConditionTest() {
-		DemoCondition condition = new DemoCondition();
-		QueryWrapper<TDemo> queryWrapper = new QueryWrapper<>();
-		queryWrapper.lambda().like(TDemo::getName, "");
-		List<TDemo> demoList = demoMapper.selectList(queryWrapper);
-		System.out.println(JacksonUtils.toJSONString(demoList));
-	}
-	@Test
-	public void getAllTest() {
-		QueryWrapper<TDemo> queryWrapper = new QueryWrapper<>();
-		List<TDemo> demoList = demoMapper.selectList(queryWrapper);
-		System.out.println(JacksonUtils.toJSONString(demoList));
-	}
-	@Test
-	public void insertDemoTest() {
-		TDemo entity = new TDemo();
-		entity.setName("liziczh");
-		entity.setCreateTime(new Date());
-		entity.setCreateUser("lizi");
-		entity.setValid(Constants.COMMON_STATUS.VALID.getCode());
-		demoMapper.insert(entity);
-	}
-	@Test
-	public void updateDemoTest() {
-		TDemo entity = new TDemo();
-		entity.setId(24);
-		entity.setName("liziczh");
-		entity.setUpdateTime(new Date());
-		entity.setUpdateUser("lizi");
-		demoMapper.updateById(entity);
-	}
-	@Test
-	public void getDemoTest() {
-		demoMapper.selectById(24);
-	}
-	@Test
-	public void delDemoTest() {
-		demoMapper.deleteById(1);
-	}
+@Slf4j
+@SpringBootTest
+public class MybatisPlusTest {
+    @Autowired
+    private TDemoMapper demoMapper;
+
+    @Test
+    public void insertTest() {
+        TDemo entity = new TDemo();
+        entity.setId(0L);
+        entity.setCreateTime(new Date());
+        entity.setCreateUser("");
+        entity.setUpdateTime(new Date());
+        entity.setUpdateUser("");
+        entity.setVersion(0);
+        entity.setIsDel(0);
+        entity.setDemoId(0L);
+        entity.setName("liziczh");
+        entity.setDesc("liziczh");
+        int result = demoMapper.insert(entity);
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
+    public void updateTest() {
+        TDemo entity = new TDemo();
+        entity.setId(0L);
+        entity.setCreateTime(new Date());
+        entity.setCreateUser("");
+        entity.setUpdateTime(new Date());
+        entity.setUpdateUser("");
+        entity.setVersion(0);
+        entity.setIsDel(0);
+        entity.setDemoId(0L);
+        entity.setName("liziczh2");
+        entity.setDesc("liziczh2");
+        int result = demoMapper.updateById(entity);
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
+    public void getTest() {
+        TDemo tDemo = demoMapper.selectById(0L);
+        Assert.assertNotNull(tDemo);
+        Assert.assertEquals(0L, (long) tDemo.getId());
+    }
+
+    @Test
+    public void selectByConditionTest() {
+        QueryWrapper<TDemo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().like(TDemo::getName, "")
+                .ge(TDemo::getCreateTime, "2022-01-01 00:00:00")
+                .lt(TDemo::getCreateTime, "2025-01-01 00:00:00");
+        Page<TDemo> demoPage = demoMapper.selectPage(new Page<>(1, 10), queryWrapper);
+        Assert.assertNotNull(demoPage);
+    }
+
+    @Test
+    public void delTest() {
+        int result = demoMapper.deleteById(0L);
+        Assert.assertEquals(1, result);
+    }
 }

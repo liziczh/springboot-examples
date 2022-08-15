@@ -16,10 +16,5 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<!--base-common-->
-		<dependency>
-			<groupId>com.liziczh</groupId>
-			<artifactId>base-common</artifactId>
-		</dependency>
     </dependencies>
 </project>

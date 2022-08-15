@@ -2,19 +2,19 @@ server:
   port: ${jvm_port:80}
   servlet:
     context-path: /redis-demo
-# log
-logging:
-  level:
-    root: info
-  config: classpath:logback-spring.xml
-  file:
-    name: /opt/logs/${spring.application.name}/${spring.application.name}.log
 spring:
   application:
     name: redis-demo-web
-  profiles:
-    active: uat
-    include: redis-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  redis:
+    host: 47.93.251.190
+    port: 6379
+    password:
+    database: 0
+    timeout: 2000
+
+# log
+logging:
+  config: classpath:logback-spring.xml

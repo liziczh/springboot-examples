@@ -35,3 +35,4 @@ build/
 ### others ###
 output
 .DS_Store
+**/log/**

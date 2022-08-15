@@ -1,56 +1,57 @@
 server:
   port: ${jvm_port:80}
   servlet:
-    context-path: /mybatisplus-demo
-# log
-logging:
-  level:
-    root: info
-  config: classpath:logback-spring.xml
-  file:
-    name: /opt/logs/${spring.application.name}/${spring.application.name}.log
+    context-path: /mybatis-demo
+
 spring:
   application:
-    name: mybatisplus-demo-web
-  profiles:
-    active: uat
-    include: mybatisplus-${spring.profiles.active}
+    name: mybatis-demo-web
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   datasource:
+    url: jdbc:mysql://47.93.251.190:3306/demo?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      name: test
-      # 初始化时建立物理连接的个数
-      initialSize: 1
-      # 最大连接池数量
-      maxActive: 20
-      # 最小连接池数量
-      minIdle: 1
-      # 获取连接时最大等待时间，单位毫秒
-      maxWait: 60000
-      # 间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 60000
-      # 连接保持空闲而不被驱逐的最小时间
-      minEvictableIdleTimeMillis: 300000
-      maxOpenPreparedStatements: 20
-      poolPreparedStatements: true
-      # 用来检测连接是否有效的sql
-      validationQuery: select 'x'
-      # 申请连接的时候检测
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计
-      filters: stat
-      # druid连接池监控
-      stat-view-servlet:
-        login-username: admin
-        login-password: admin
-      # 排除静态资源，提高效率
-      web-stat-filter:
-        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # 最大连接数，默认是 10
+      maximum-pool-size: 30
+      # 最小空闲连接数
+      minimum-idle: 10
+      # 连接的超时时间，默认30000 (毫秒)
+      connection-timeout: 60000
+      # 空闲连接最大存活时间（毫秒）
+      idle-timeout: 60000
+      # 池中连接的最长生命周期，值 0 表示无限生命周期（毫秒）
+      max-lifetime: 600000
+      # 连接到数据库时等待最长时间(秒)
+      login-timeout: 5
+      # 自动提交，默认true
+      auto-commit: true
+  redis:
+    host: 47.93.251.190
+    port: 6379
+    password:
+    database: 0
+    timeout: 2000
+
+# log
+logging:
+  config: classpath:logback-spring.xml
+
+# mybatis-plus
 mybatis-plus:
-  config-location: classpath:mybatis-config.xml
+  # Config文件位置
+  config-location: mybatis/mybatis-config.xml
+  # Mapper文件位置
+  mapper-locations: classpath:mapper/*.xml
+
+# pagehelper
+pagehelper:
+  helper-dialect: mysql
+  # 分页参数合理化
+  reasonable: true
+  # 支持通过Mapper接口参数传递分页参数
+  support-methods-arguments: true

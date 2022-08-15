@@ -10,41 +10,97 @@
 	<groupId>com.liziczh</groupId>
 	<artifactId>springboot-mybatis-plus</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<!--属性配置-->
+	<properties>
+		<jdk.version>1.8</jdk.version>
+		<mysql-version>8.0.30</mysql-version>
+		<mybatis-plus-version>3.5.2</mybatis-plus-version>
+		<mybatis-generator-version>1.4.1</mybatis-generator-version>
+	</properties>
+
 	<dependencies>
-		<!-- jdbc -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
 		<!--mysql-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<!-- druid -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${mysql-version}</version>
 		</dependency>
 		<!-- mybatis-plus -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus-version}</version>
+		</dependency>
+		<!-- mybatis-generator -->
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-core</artifactId>
+			<version>${mybatis-generator-version}</version>
+		</dependency>
+		<!--pagehelper-->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.4.3</version>
 		</dependency>
 		<!--spring-redis-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		<!--base-common-->
+		<!--test-->
 		<dependency>
-			<groupId>com.liziczh</groupId>
-			<artifactId>base-common</artifactId>
-		</dependency>
-		<!--web-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis-generator-version}</version>
+				<configuration>
+					<!--配置文件的路径-->
+					<configurationFile>src/main/resources/mybatis/mybatis-generator.xml</configurationFile>
+					<overwrite>true</overwrite>
+				</configuration>
+				<executions>
+					<execution>
+						<id>Generate MyBatis Artifacts</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<verbose>true</verbose>
+							<overwrite>true</overwrite>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<!--mysql-->
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql-version}</version>
+					</dependency>
+					<!-- mybatis-plus -->
+					<dependency>
+						<groupId>com.baomidou</groupId>
+						<artifactId>mybatis-plus-boot-starter</artifactId>
+						<version>${mybatis-plus-version}</version>
+					</dependency>
+					<!-- mybatis-generator -->
+					<dependency>
+						<groupId>org.mybatis.generator</groupId>
+						<artifactId>mybatis-generator-core</artifactId>
+						<version>${mybatis-generator-version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 </project>
