@@ -1,12 +1,14 @@
 package com.liziczh.springboot.redis;
 
-import java.io.Serializable;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+
+import com.liziczh.springboot.redis.dto.DemoDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RedisTest {
 
     @Autowired
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Test
     public void set() {
@@ -30,7 +32,7 @@ public class RedisTest {
 
     @Test
     public void getKey() {
-        Serializable result = redisTemplate.opsForValue().get("test");
+        String result = String.valueOf(redisTemplate.opsForValue().get("test"));
         log.info("getKey, result={}", result);
     }
 
@@ -47,5 +49,22 @@ public class RedisTest {
         log.info("lock, result={}", result);
     }
 
+    @Test
+    public void saveDTO() {
+        DemoDTO dto = new DemoDTO();
+        dto.setId(0L);
+        dto.setCreateTime(new Date());
+        dto.setCreateUser("");
+        dto.setUpdateTime(new Date());
+        dto.setUpdateUser("");
+        dto.setVersion(0);
+        dto.setIsDel(0);
+        dto.setDemoId(0L);
+        dto.setName("");
+        dto.setDesc("");
+        redisTemplate.opsForValue().set("test", dto, 60, TimeUnit.SECONDS);
+        String result = String.valueOf(redisTemplate.opsForValue().get("test"));
+        log.info("saveDTO, dto={}", result);
+    }
 
 }

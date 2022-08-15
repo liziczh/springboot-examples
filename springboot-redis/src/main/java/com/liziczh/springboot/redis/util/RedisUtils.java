@@ -22,14 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 public class RedisUtils {
 
     @Autowired
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     public Boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
     }
 
-    public Object getKey(String key) {
-        return redisTemplate.opsForValue().get(key);
+    public String getKey(String key) {
+        return String.valueOf(redisTemplate.opsForValue().get(key));
     }
 
     public Boolean delete(String key) {
