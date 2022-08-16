@@ -1,4 +1,4 @@
-package com.liziczh.springboot.easyexcel.config;
+package com.liziczh.springboot.swagger.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
