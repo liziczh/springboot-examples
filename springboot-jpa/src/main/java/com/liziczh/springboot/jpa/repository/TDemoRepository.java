@@ -3,14 +3,13 @@ package com.liziczh.springboot.jpa.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.liziczh.springboot.jpa.entity.TDemo;
 
-public interface TDemoRepository extends JpaRepository<TDemo, Integer> {
-	/**
-	 * 根据姓名查询记录
-	 * @param name 姓名
-	 * @return 记录
-	 */
-	List<TDemo> findByName(String name);
+@Repository
+public interface TDemoRepository extends JpaRepository<TDemo, Long> {
+
+    List<TDemo> findByName(String name);
+
 }

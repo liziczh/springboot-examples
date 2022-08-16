@@ -4,15 +4,18 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.liziczh.springboot.redis.dto.DemoDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBootRedisTests {
 
