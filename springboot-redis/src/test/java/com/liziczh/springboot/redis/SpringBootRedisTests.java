@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
-public class RedisTest {
+public class SpringBootRedisTests {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;

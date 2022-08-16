@@ -6,12 +6,16 @@ server:
 spring:
   application:
     name: mail-demo-web
-  profiles:
-    active: uat
-    include: mail-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: liziczh@qq.com
+    password: 123456
+    default-encoding: UTF-8
+    test-connection: false
 
 # log
 logging:

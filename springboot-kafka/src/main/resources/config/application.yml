@@ -2,19 +2,41 @@ server:
   port: ${jvm_port:80}
   servlet:
     context-path: /kafka-demo
-# log
-logging:
-  level:
-    root: info
-  config: classpath:logback-spring.xml
-  file:
-    name: /opt/logs/${spring.application.name}/${spring.application.name}.log
+
 spring:
   application:
     name: kafka-demo-web
-  profiles:
-    active: uat
-    include: kafka-${spring.profiles.active}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  kafka:
+    producer:
+      bootstrap-servers: 47.93.251.190:9092
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      acks: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: 47.93.251.190:9092
+      group-id: testGroup
+      enable-auto-commit: true
+      auto-offset-reset: earliest
+      auto-commit-interval: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    init:
+      topics[0]:
+        topic-name: testTopic
+        partition-num: 2
+        replication-factor: 1
+      topics[1]:
+        topic-name: testTopic2
+        partition-num: 2
+        replication-factor: 1
+
+# log
+logging:
+  config: classpath:logback-spring.xml
+
