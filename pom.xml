@@ -19,6 +19,7 @@
 		<module>springboot-easyexcel</module>
 		<module>springboot-swagger</module>
 		<module>springboot-web</module>
+		<module>springboot-aop</module>
 	</modules>
 
 	<!--属性配置-->

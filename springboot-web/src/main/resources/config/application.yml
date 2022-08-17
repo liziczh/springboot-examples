@@ -1,11 +1,11 @@
 server:
   port: ${jvm_port:80}
   servlet:
-    context-path: /swagger-demo
+    context-path: /web-demo
 
 spring:
   application:
-    name: swagger-demo-web
+    name: web-demo-web
   profiles:
     active: dev
   jackson:

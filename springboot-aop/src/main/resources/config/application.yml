@@ -1,0 +1,15 @@
+server:
+  port: ${jvm_port:80}
+  servlet:
+    context-path: /aop-demo
+
+spring:
+  application:
+    name: aop-demo-web
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# log
+logging:
+  config: classpath:logback-spring.xml
