@@ -5,7 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 
 import lombok.Data;
 
@@ -29,9 +31,11 @@ public class TDemo {
     private String updateUser;
 
     @TableField(value = "version")
+    @Version
     private Integer version;
 
     @TableField(value = "is_del")
+    @TableLogic(value = "0", delval = "1")
     private Integer isDel;
 
     @TableField(value = "demo_id")
