@@ -1,24 +1,27 @@
 package com.liziczh.springboot.easyexcel.service;
 
-import com.liziczh.springboot.easyexcel.condition.DemoCondition;
-
 /**
  * @author zhehao.chen
  */
 public interface ExcelService {
-	/**
-	 * 导入Excel表格式化数据后导出
-	 *
-	 * @throws Exception
-	 */
-	void formatData(String uploadFileName, String exportFileName) throws Exception;
+    /**
+     * 格式化数据
+     *
+     * @param importFileName
+     * @param exportFileName
+     * @return void
+     * @author chenzhehao
+     * @date 2022/8/17 11:05 AM
+     */
+    void formatData(String importFileName, String exportFileName);
 
-	/**
-	 * 导出Demo表
-	 *
-	 * @param condition 条件
-	 * @return 文件流
-	 * @throws Exception e
-	 */
-	void exportDemo(DemoCondition condition) throws Exception;
+    /**
+     * 导出数据
+     *
+     * @param
+     * @return void
+     * @author chenzhehao
+     * @date 2022/8/17 11:05 AM
+     */
+    void export();
 }

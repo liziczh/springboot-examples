@@ -11,16 +11,17 @@
 	<artifactId>springboot-easyexcel</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
-		<!--lombok-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
 		<!--easy excel-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
 			<version>3.1.1</version>
+		</dependency>
+		<!--fastjson-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>2.0.11.graal</version>
 		</dependency>
 		<!--web-->
 		<dependency>

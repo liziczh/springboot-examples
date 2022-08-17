@@ -14,13 +14,9 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.liziczh.springboot.easyexcel.condition.DemoCondition;
-import com.liziczh.springboot.easyexcel.dto.excel.DemoModel;
-import com.liziczh.springboot.easyexcel.dto.excel.UploadDataModel;
-import com.liziczh.springboot.easyexcel.entity.TDemo;
-import com.liziczh.springboot.easyexcel.listener.UploadDataListener;
-import com.liziczh.springboot.easyexcel.mapper.TDemoMapper;
+import com.liziczh.springboot.easyexcel.dto.excel.ExportDataModel;
+import com.liziczh.springboot.easyexcel.dto.excel.ImportDataModel;
+import com.liziczh.springboot.easyexcel.listener.ImportDataListener;
 import com.liziczh.springboot.easyexcel.service.ExcelService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,68 +29,59 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ExcelServiceImpl implements ExcelService {
-	@Autowired
-	HttpServletResponse response;
-	@Autowired
-	private TDemoMapper tDemoMapper;
-	@Override
-	public void formatData(String uploadFileName, String exportFileName) throws Exception {
-		EasyExcel.read(uploadFileName, UploadDataModel.class, new UploadDataListener(exportFileName)).sheet().doRead();
-	}
-	@Override
-	public void exportDemo(DemoCondition condition) {
-		// 导出
-		ServletOutputStream out;
-		ExcelWriter writer = null;
-		try {
-			out = response.getOutputStream();
-			writer = EasyExcelFactory.write(out, DemoModel.class).build();
-			WriteSheet sheet = EasyExcelFactory.writerSheet("sheet1").build();
-			writer.write(data(condition), sheet);
-			// response stream
-			String fileName = URLEncoder.encode("Demo列表", "UTF-8");
-			download(fileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (writer != null) {
-				writer.finish();
-			}
-		}
-	}
-	/**
-	 * 条件查询数据
-	 *
-	 * @param condition 条件
-	 * @return BaseRowModel
-	 */
-	private List<DemoModel> data(DemoCondition condition) {
-		// 条件查询订单
-		QueryWrapper<TDemo> queryWrapper = new QueryWrapper<>();
-		queryWrapper.orderByDesc("CREATE_TIME");
-		List<TDemo> demoList = tDemoMapper.selectList(queryWrapper);
-		List<DemoModel> modelList = new ArrayList<>();
-		for (TDemo demo : demoList) {
-			DemoModel model = new DemoModel();
-			model.setId(demo.getId());
-			model.setName(demo.getName());
-			model.setCreateDate(demo.getCreateTime());
-			model.setCreateUser(demo.getCreateUser());
-			model.setUpdateDate(demo.getUpdateTime());
-			model.setUpdateUser(demo.getUpdateUser());
-			modelList.add(model);
-		}
-		return modelList;
-	}
-	/**
-	 * 下载Excel文件
-	 *
-	 * @param fileName 文件名
-	 */
-	private void download(String fileName) {
-		response.reset();
-		response.setContentType("application/vnd.ms-excel;charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
-	}
+
+    @Autowired
+    private HttpServletResponse response;
+
+    @Override
+    public void formatData(String importFileName, String exportFileName) {
+        EasyExcel.read(importFileName, ImportDataModel.class, new ImportDataListener(exportFileName)).sheet().doRead();
+    }
+
+    @Override
+    public void export() {
+        // 导出
+        ServletOutputStream outputStream;
+        ExcelWriter writer = null;
+        try {
+            outputStream = response.getOutputStream();
+            writer = EasyExcelFactory.write(outputStream, ExportDataModel.class).build();
+            WriteSheet sheet = EasyExcelFactory.writerSheet("sheet1").build();
+            writer.write(this.data(), sheet);
+            // response stream
+            String fileName = URLEncoder.encode("导出数据列表", "UTF-8");
+            this.download(fileName);
+        } catch (Exception e) {
+            log.error("export error", e);
+        } finally {
+            if (writer != null) {
+                writer.finish();
+            }
+        }
+    }
+
+    /**
+     * 获取导出数据
+     *
+     * @return java.util.List<ExportDataModel>
+     * @author chenzhehao
+     * @date 2022/8/17 11:07 AM
+     */
+    private List<ExportDataModel> data() {
+        // TODO 获取导出数据
+        List<ExportDataModel> dataList = new ArrayList<>();
+        return dataList;
+    }
+
+    /**
+     * 下载Excel文件
+     *
+     * @param fileName 文件名
+     */
+    private void download(String fileName) {
+        response.reset();
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+    }
 }

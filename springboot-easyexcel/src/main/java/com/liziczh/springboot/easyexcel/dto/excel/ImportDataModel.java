@@ -1,16 +1,11 @@
 package com.liziczh.springboot.easyexcel.dto.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+
 import lombok.Data;
 
-/**
- * 对接百度健康订单信息
- *
- * @author zhehao.chen
- */
 @Data
-public class UploadDataModel {
-    private static final long serialVersionUID = -4759455543086580031L;
+public class ImportDataModel {
     @ExcelProperty(value = "rule_id", index = 0)
     private Integer ruleId;
     @ExcelProperty(value = "country_code", index = 1)
