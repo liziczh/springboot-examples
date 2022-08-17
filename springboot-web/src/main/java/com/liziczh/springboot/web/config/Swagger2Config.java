@@ -1,4 +1,4 @@
-package com.liziczh.springboot.easyexcel.config;
+package com.liziczh.springboot.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

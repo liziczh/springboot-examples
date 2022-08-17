@@ -1,12 +1,11 @@
-package com.liziczh.springboot.easyexcel;
+package com.liziczh.springboot.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-public class SpringbootEasyexcelApplication {
+public class SpringBootWebApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootEasyexcelApplication.class, args);
+        SpringApplication.run(SpringBootWebApplication.class, args);
     }
 }

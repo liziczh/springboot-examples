@@ -8,11 +8,13 @@ import org.springframework.core.env.Profiles;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+@EnableOpenApi
 @Configuration
 public class Swagger2Config {
     public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.liziczh";

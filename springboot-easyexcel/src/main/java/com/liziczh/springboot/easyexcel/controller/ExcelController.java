@@ -13,13 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping(value = "/excel/")
 @RestController
-public class DemoController {
+public class ExcelController {
 	@Autowired
 	private ExcelService excelService;
 
-	@RequestMapping(value = "formatData", method = RequestMethod.POST)
-	public void formatJsonString(@RequestParam String uploadFileName, @RequestParam String exportFileName) {
-		excelService.formatData(uploadFileName, exportFileName);
+	@RequestMapping(value = "format", method = RequestMethod.POST)
+	public void formatJsonString(@RequestParam String importFileName, @RequestParam String exportFileName) {
+		excelService.formatData(importFileName, exportFileName);
 	}
 
 	@RequestMapping(value = "download", method = RequestMethod.POST)

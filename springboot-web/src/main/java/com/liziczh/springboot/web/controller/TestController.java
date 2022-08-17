@@ -1,4 +1,5 @@
-package com.liziczh.springboot.swagger.controller;
+package com.liziczh.springboot.web.controller;
+
 import java.util.Date;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.liziczh.springboot.swagger.api.dto.DemoDTO;
+import com.liziczh.springboot.web.api.dto.DemoDTO;
+import com.liziczh.springboot.web.api.enums.BaseCodeEnum;
+import com.liziczh.springboot.web.api.exception.BizInfoException;
+import com.liziczh.springboot.web.api.response.BaseResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,14 +32,17 @@ public class TestController {
 
     @ApiOperation(value = "保存接口", notes = "Hello World")
     @PostMapping("save")
-    public String save(@RequestBody DemoDTO dto) {
+    public BaseResponse<Void> save(@RequestBody DemoDTO dto) {
         log.info("dto={}", dto);
-        return "success";
+        return BaseResponse.<Void>builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .msg(BaseCodeEnum.SUCCESS.getDesc())
+                .build();
     }
 
     @ApiOperation(value = "查询接口", notes = "Hello World")
     @GetMapping("get/{id}")
-    public DemoDTO get(@PathVariable Long id) {
+    public BaseResponse<DemoDTO> get(@PathVariable Long id) {
         DemoDTO dto = new DemoDTO();
         dto.setId(id);
         dto.setCreateTime(new Date());
@@ -47,7 +54,17 @@ public class TestController {
         dto.setDemoId(0L);
         dto.setName("abc");
         dto.setDesc("zxc");
-        return dto;
+        return BaseResponse.<DemoDTO>builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .msg(BaseCodeEnum.SUCCESS.getDesc())
+                .data(dto)
+                .build();
+    }
+
+    @ApiOperation(value = "异常接口", notes = "Hello World")
+    @PostMapping("error")
+    public BaseResponse<DemoDTO> error() {
+        throw new BizInfoException(BaseCodeEnum.ERROR.getCode(), BaseCodeEnum.ERROR.getDesc());
     }
 
 }
