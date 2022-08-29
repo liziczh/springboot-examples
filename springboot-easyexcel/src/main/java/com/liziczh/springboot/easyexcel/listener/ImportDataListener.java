@@ -6,9 +6,9 @@ import java.util.List;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
 import com.liziczh.springboot.easyexcel.dto.excel.ImportDataModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +30,8 @@ public class ImportDataListener extends AnalysisEventListener<ImportDataModel> {
         String jsonString = model.getContent();
 
         JSONObject object = JSONObject.parseObject(jsonString);
-        String jsonResult = JSON.toJSONString(object, SerializerFeature.PrettyFormat,
-                SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat);
+        String jsonResult = JSON.toJSONString(object, JSONWriter.Feature.PrettyFormat,
+                JSONWriter.Feature.WriteMapNullValue);
 
         model.setJsonContent(jsonResult);
         log.info("JsonContent：{}", model.getJsonContent());
