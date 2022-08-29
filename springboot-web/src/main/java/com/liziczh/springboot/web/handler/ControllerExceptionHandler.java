@@ -2,6 +2,8 @@ package com.liziczh.springboot.web.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,6 +26,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestControllerAdvice
 public class ControllerExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public BaseResponse<Void> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        BindingResult result = e.getBindingResult();
+        if (result.hasErrors()) {
+            String msg = result.getAllErrors().get(0).getDefaultMessage();
+            return buildResponse(BaseCodeEnum.BAD_REQUEST.getCode(), msg);
+        }
+        return buildResponse(null, null);
+    }
 
     @ExceptionHandler(BizInfoException.class)
     @ResponseStatus(value = HttpStatus.OK)
@@ -52,8 +66,8 @@ public class ControllerExceptionHandler {
      */
     private BaseResponse<Void> buildResponse(String code, String msg) {
         BaseResponse<Void> baseResponse = BaseResponse.<Void>builder()
-                .code(StringUtils.hasText(code) ? BaseCodeEnum.ERROR.getCode() : code)
-                .msg(StringUtils.hasText(msg) ? BaseCodeEnum.ERROR.getDesc() : msg)
+                .code(StringUtils.hasText(code) ? code : BaseCodeEnum.ERROR.getCode())
+                .msg(StringUtils.hasText(msg) ? msg : BaseCodeEnum.ERROR.getDesc())
                 .build();
         log.info("ControllerExceptionHandler.buildResponse, response={}", baseResponse);
         return baseResponse;

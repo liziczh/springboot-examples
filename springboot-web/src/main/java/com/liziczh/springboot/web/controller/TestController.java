@@ -2,6 +2,10 @@ package com.liziczh.springboot.web.controller;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +36,7 @@ public class TestController {
 
     @ApiOperation(value = "保存接口", notes = "Hello World")
     @PostMapping("save")
-    public BaseResponse<Void> save(@RequestBody DemoDTO dto) {
+    public BaseResponse<Void> save(@RequestBody @Validated DemoDTO dto) {
         log.info("dto={}", dto);
         return BaseResponse.<Void>builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
@@ -42,7 +46,7 @@ public class TestController {
 
     @ApiOperation(value = "查询接口", notes = "Hello World")
     @GetMapping("get/{id}")
-    public BaseResponse<DemoDTO> get(@PathVariable Long id) {
+    public BaseResponse<DemoDTO> get(@PathVariable @Min(value = 1, message = "非法ID") @NotNull Long id) {
         DemoDTO dto = new DemoDTO();
         dto.setId(id);
         dto.setCreateTime(new Date());

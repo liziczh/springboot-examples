@@ -1,12 +1,11 @@
-package com.liziczh.springboot.easyexcel;
+package com.liziczh.springboot.mail;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-public class SpringbootEasyexcelApplication {
+public class SpringBootMailApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootEasyexcelApplication.class, args);
+        SpringApplication.run(SpringBootMailApplication.class, args);
     }
 }
