@@ -13,7 +13,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -59,28 +58,28 @@ public class ControllerAop {
         HttpServletRequest request = attributes.getRequest();
         // 打印请求相关参数
         log.info("========================================== Around Start ==========================================");
-        // 打印请求 url
-        log.info("URL            : {}", request.getRequestURL().toString());
-        // 打印 Http method
-        log.info("HTTP Method    : {}", request.getMethod());
         // 打印请求的 IP
-        log.info("IP             : {}", request.getRemoteAddr());
+        String ip = request.getRemoteAddr();
+        // 打印请求 url
+        String url = request.getRequestURL().toString();
+        // 打印 Http method
+        String httpMethod = request.getMethod();
         // 打印调用 controller 的全路径以及执行方法
-        log.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName());
+        String className = joinPoint.getSignature().getDeclaringTypeName();
+        String methodName = joinPoint.getSignature().getName();
         // 打印请求入参
         String methodParams = null;
         Object[] args = joinPoint.getArgs();
         if (args != null && args.length > 0) {
             methodParams = Arrays.toString(args);
         }
-        log.info("Request Args   : {}", methodParams);
+        log.info("IP:{}, URL:{}, HTTP Method:{}, Class-Method: {}::{}, Request Args: {}", ip, url, httpMethod,
+            className, methodName, methodParams);
         // 执行方法
         Object result = joinPoint.proceed();
-        // 打印出参
-        log.info("BaseResponse Args  : {}", result);
-        // 执行耗时
-        log.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
+        // 打印出参和执行耗时
+        log.info("Class-Method: {}::{}, Result: {}, Cost={}", className, methodName, result,
+            System.currentTimeMillis() - startTime);
         // 接口结束
         log.info("=========================================== Around End ===========================================");
         return result;
@@ -102,20 +101,20 @@ public class ControllerAop {
      */
     @AfterReturning(value = "webController()", returning = "returnValue")
     public void doAfterReturningAdvice(JoinPoint joinPoint, Object returnValue) {
-        // WebLogIgnore
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         // 打印调用 controller 的全路径以及执行方法
-        log.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName());
+        String className = joinPoint.getSignature().getDeclaringTypeName();
+        String methodName = joinPoint.getSignature().getName();
         // 打印方法返回值
-        log.info("Return Value   : {}", returnValue);
+        log.info("Class-Method: {}::{}, Return Value: {}", className, methodName, returnValue);
         // 接口返回
         log.info("========================================= Return ========================================={}",
-                System.lineSeparator());
+            System.lineSeparator());
     }
 
     @AfterThrowing(value = "webController()", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        log.error("Web Exception", e);
+        String className = joinPoint.getSignature().getDeclaringTypeName();
+        String methodName = joinPoint.getSignature().getName();
+        log.error("Class-Method: {}::{}, Web Exception", className, methodName, e);
     }
 }

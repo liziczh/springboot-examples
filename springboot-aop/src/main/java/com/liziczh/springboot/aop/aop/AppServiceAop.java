@@ -48,22 +48,22 @@ public class AppServiceAop {
         long startTime = System.currentTimeMillis();
         // 开始打印请求日志
         log.info("========================================== Service Start ==========================================");
-        // 打印调用 controller 的全路径以及执行方法
-        log.info("Class Method   : {}.{}", proceedingJoinPoint.getSignature().getDeclaringTypeName(),
-                proceedingJoinPoint.getSignature().getName());
+        // 打印调用 service 的全路径以及执行方法
+        String className = proceedingJoinPoint.getSignature().getDeclaringTypeName();
+        String methodName = proceedingJoinPoint.getSignature().getName();
         // 打印请求入参
         String methodParams = null;
         Object[] args = proceedingJoinPoint.getArgs();
         if (args != null && args.length > 0) {
             methodParams = Arrays.toString(args);
         }
-        log.info("Request Args   : {}", methodParams);
+        // 打印入参
+        log.info("Class-Method: {}::{}, Request Args: {}", className, methodName, methodParams);
         // 执行方法
         Object result = proceedingJoinPoint.proceed();
-        // 打印出参
-        log.info("BaseResponse Args  : {}", result);
-        // 执行耗时
-        log.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
+        // 打印出参和执行耗时
+        log.info("Class-Method: {}::{}, Result: {}, Cost={}", className, methodName, result,
+            System.currentTimeMillis() - startTime);
         // 接口结束后换行，方便分割查看
         log.info("=========================================== Service End ===========================================");
         return result;
@@ -83,16 +83,18 @@ public class AppServiceAop {
     @AfterReturning(value = "appService()", returning = "returnValue")
     public void doAfterReturningAdvice(JoinPoint joinPoint, Object returnValue) {
         // 打印调用 controller 的全路径以及执行方法
-        log.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName());
+        String className = joinPoint.getSignature().getDeclaringTypeName();
+        String methodName = joinPoint.getSignature().getName();
         // 打印方法返回值
-        log.info("Return Value   : {}", returnValue);
+        log.info("Class-Method: {}::{}, Return Value: {}", className, methodName, returnValue);
         // 接口返回结束
         log.info("========================================= Service Return =========================================");
     }
 
     @AfterThrowing(value = "appService()", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        log.error("Service Exception", e);
+        String className = joinPoint.getSignature().getDeclaringTypeName();
+        String methodName = joinPoint.getSignature().getName();
+        log.error("Class-Method: {}::{}, Service Exception", className, methodName, e);
     }
 }
