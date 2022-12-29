@@ -44,6 +44,12 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.4.3</version>
 		</dependency>
+		<!-- mybatis-plus-join -->
+		<dependency>
+			<groupId>com.github.yulichang</groupId>
+			<artifactId>mybatis-plus-join</artifactId>
+			<version>1.2.4</version>
+		</dependency>
 		<!--spring-redis-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

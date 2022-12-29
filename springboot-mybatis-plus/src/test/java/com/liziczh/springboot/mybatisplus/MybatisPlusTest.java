@@ -1,6 +1,6 @@
 package com.liziczh.springboot.mybatisplus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.liziczh.springboot.mybatisplus.entity.TDemo;
-import com.liziczh.springboot.mybatisplus.mapper.TDemoMapper;
+import com.liziczh.springboot.mybatisplus.entity.Student;
+import com.liziczh.springboot.mybatisplus.mapper.StudentMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,19 +21,19 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class MybatisPlusTest {
     @Autowired
-    private TDemoMapper demoMapper;
+    private StudentMapper demoMapper;
 
     @Test
     public void insertTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setId(0L);
-        entity.setCreateTime(new Date());
+        entity.setCreateTime(LocalDateTime.now());
         entity.setCreateUser("");
-        entity.setUpdateTime(new Date());
+        entity.setUpdateTime(LocalDateTime.now());
         entity.setUpdateUser("");
         entity.setVersion(0);
         entity.setIsDel(0);
-        entity.setDemoId(0L);
+        entity.setStudentId(0L);
         entity.setName("liziczh");
         entity.setDesc("liziczh");
         int result = demoMapper.insert(entity);
@@ -42,15 +42,15 @@ public class MybatisPlusTest {
 
     @Test
     public void updateTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setId(0L);
-        entity.setCreateTime(new Date());
+        entity.setCreateTime(LocalDateTime.now());
         entity.setCreateUser("");
-        entity.setUpdateTime(new Date());
+        entity.setUpdateTime(LocalDateTime.now());
         entity.setUpdateUser("");
         entity.setVersion(0);
         entity.setIsDel(0);
-        entity.setDemoId(0L);
+        entity.setStudentId(0L);
         entity.setName("liziczh2");
         entity.setDesc("liziczh2");
         int result = demoMapper.updateById(entity);
@@ -59,18 +59,18 @@ public class MybatisPlusTest {
 
     @Test
     public void getTest() {
-        TDemo tDemo = demoMapper.selectById(0L);
+        Student tDemo = demoMapper.selectById(0L);
         Assert.assertNotNull(tDemo);
         Assert.assertEquals(0L, (long) tDemo.getId());
     }
 
     @Test
     public void selectByConditionTest() {
-        QueryWrapper<TDemo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(TDemo::getName, "")
-                .ge(TDemo::getCreateTime, "2022-01-01 00:00:00")
-                .lt(TDemo::getCreateTime, "2025-01-01 00:00:00");
-        Page<TDemo> demoPage = demoMapper.selectPage(new Page<>(1, 10), queryWrapper);
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().like(Student::getName, "")
+            .ge(Student::getCreateTime, "2022-01-01 00:00:00")
+            .lt(Student::getCreateTime, "2025-01-01 00:00:00");
+        Page<Student> demoPage = demoMapper.selectPage(new Page<>(1, 10), queryWrapper);
         Assert.assertNotNull(demoPage);
     }
 

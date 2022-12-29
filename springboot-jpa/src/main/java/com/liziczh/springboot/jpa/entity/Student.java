@@ -22,8 +22,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
-@Table(name = "t_demo")
-public class TDemo implements Serializable {
+@Table(name = "student")
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

@@ -10,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.liziczh.springboot.mybatis.condition.DemoCondition;
-import com.liziczh.springboot.mybatis.entity.TDemo;
-import com.liziczh.springboot.mybatis.mapper.TDemoMapper;
+import com.liziczh.springboot.mybatis.entity.Student;
+import com.liziczh.springboot.mybatis.mapper.StudentMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,11 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class MybatisTest {
     @Autowired
-    private TDemoMapper demoMapper;
+    private StudentMapper demoMapper;
 
     @Test
     public void insertTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setId(0L);
         entity.setCreateTime(new Date());
         entity.setCreateUser("");
@@ -41,7 +41,7 @@ public class MybatisTest {
 
     @Test
     public void updateTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setId(0L);
         entity.setCreateTime(new Date());
         entity.setCreateUser("");
@@ -57,13 +57,13 @@ public class MybatisTest {
 
     @Test
     public void getTest() {
-        TDemo tDemo = demoMapper.selectByPrimaryKey(0L);
+        Student tDemo = demoMapper.selectByPrimaryKey(0L);
     }
 
     @Test
     public void selectByConditionTest() {
         DemoCondition condition = new DemoCondition();
-        List<TDemo> demoList = demoMapper.selectByCondition(condition);
+        List<Student> demoList = demoMapper.selectByCondition(condition);
     }
 
     @Test

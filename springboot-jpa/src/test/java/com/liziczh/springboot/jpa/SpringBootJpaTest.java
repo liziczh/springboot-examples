@@ -15,8 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.liziczh.springboot.jpa.entity.TDemo;
-import com.liziczh.springboot.jpa.repository.TDemoRepository;
+import com.liziczh.springboot.jpa.entity.Student;
+import com.liziczh.springboot.jpa.repository.StudentRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,11 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class SpringBootJpaTest {
     @Autowired
-    private TDemoRepository demoRepository;
+    private StudentRepository demoRepository;
 
     @Test
     public void insertTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setId(0L);
         entity.setCreateTime(new Date());
         entity.setCreateUser("");
@@ -40,13 +40,13 @@ public class SpringBootJpaTest {
         entity.setDemoId(0L);
         entity.setName("liziczh");
         entity.setDesc("liziczh");
-        TDemo result = demoRepository.saveAndFlush(entity);
+        Student result = demoRepository.saveAndFlush(entity);
         log.info("insertTest, result={}", result);
     }
 
     @Test
     public void updateTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setId(71L);
         entity.setCreateTime(new Date());
         entity.setCreateUser("");
@@ -57,28 +57,28 @@ public class SpringBootJpaTest {
         entity.setDemoId(0L);
         entity.setName("liziczh2");
         entity.setDesc("liziczh2");
-        TDemo result = demoRepository.save(entity);
+        Student result = demoRepository.save(entity);
         log.info("updateTest, result={}", result);
     }
 
     @Test
     public void getTest() {
-        TDemo demo = demoRepository.findById(0L).get();
+        Student demo = demoRepository.findById(0L).get();
         log.info("getTest, demo={}", demo);
     }
 
     @Test
     public void selectByConditionTest() {
-        TDemo entity = new TDemo();
+        Student entity = new Student();
         entity.setName("liziczh");
         List<Sort.Order> sortOrderList = new ArrayList<>();
         Sort.Direction direction = Sort.Direction.DESC;
         sortOrderList.add(new Sort.Order(direction, "createTime"));
         PageRequest pageRequest = PageRequest.of(1, 10, Sort.by(sortOrderList));
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
-        Example<TDemo> example = Example.of(entity, matcher);
-        Page<TDemo> page = demoRepository.findAll(example, pageRequest);
+            .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Student> example = Example.of(entity, matcher);
+        Page<Student> page = demoRepository.findAll(example, pageRequest);
         log.info("getTest, page={}", page);
     }
 

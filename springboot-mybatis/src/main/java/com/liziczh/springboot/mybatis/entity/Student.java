@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class TDemo {
+public class Student {
     private Long id;
 
     private Date createTime;

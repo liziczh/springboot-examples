@@ -1,7 +1,8 @@
 package com.liziczh.springboot.mybatisplus.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -12,20 +13,20 @@ import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
 @Data
-@TableName(value = "t_demo")
-public class TDemo {
+@TableName(value = "student")
+public class Student {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @TableField(value = "create_time")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @TableField(value = "create_user")
     private String createUser;
 
-    @TableField(value = "update_time")
-    private Date updateTime;
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 
     @TableField(value = "update_user")
     private String updateUser;
@@ -38,8 +39,11 @@ public class TDemo {
     @TableLogic(value = "0", delval = "1")
     private Integer isDel;
 
-    @TableField(value = "demo_id")
-    private Long demoId;
+    @TableField(value = "student_id")
+    private Long studentId;
+
+    @TableField(value = "school_id")
+    private Long schoolId;
 
     @TableField(value = "name")
     private String name;
