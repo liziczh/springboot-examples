@@ -10,6 +10,7 @@
 
 	<!--module-->
 	<modules>
+		<module>springboot-demo</module>
 		<module>springboot-jpa</module>
 		<module>springboot-mybatis</module>
 		<module>springboot-mybatis-plus</module>
