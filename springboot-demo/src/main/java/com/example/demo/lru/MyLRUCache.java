@@ -29,8 +29,8 @@ public class MyLRUCache<K, V> {
 
     }
 
-    private Map<K, Node<K, V>> cache;
-    private int capacity;
+    private final Map<K, Node<K, V>> cache;
+    private final int capacity;
     private int used;
     private Node<K, V> head = new Node<>();
     private Node<K, V> tail = new Node<>();
@@ -57,9 +57,11 @@ public class MyLRUCache<K, V> {
         tail.prev = node;
     }
 
-    public void removeHead() {
+    public Node<K, V> removeHead() {
+        Node<K, V> node = head.next;
         head.next = head.next.next;
         head.next.prev = head;
+        return node;
     }
 
     public V get(K k) {
@@ -86,11 +88,25 @@ public class MyLRUCache<K, V> {
                 cache.put(k, node);
                 addToTail(node);
                 if (used == capacity) {
-                    removeHead();
+                    Node<K, V> delNode = removeHead();
+                    cache.remove(delNode.key);
                 }
                 used++;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        MyLRUCache<String, String> cache = new MyLRUCache<String, String>(5);
+        cache.put("1", "a");
+        cache.put("2", "b");
+        cache.put("3", "c");
+        cache.put("4", "d");
+        cache.put("5", "e");
+        System.out.println(cache.get("2")); // b
+        System.out.println(cache.get("4")); // d
+        cache.put("6", "f");
+        System.out.println(cache.get("1")); // null
     }
 
 }
